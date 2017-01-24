@@ -1,0 +1,42 @@
+apply plugin: 'java'
+apply plugin: 'application'
+
+
+sourceCompatibility = 1.8
+targetCompatibility = 1.8
+
+dependencies {
+    testCompile "junit:junit:4.12"
+}
+
+jar {
+    baseName = 'gs-gradle'
+    version =  '0.1.0'
+}
+
+repositories {
+    mavenCentral()
+}
+
+sourceSets {
+   main {
+      java {
+         srcDir 'src/main/java'
+      }
+   }
+   test {
+      java {
+         srcDir 'testSrc'
+      }
+      /*
+      resources {
+         srcDir 'test/resources'
+         srcDir 'conf'
+      }
+      */
+   }
+
+}
+
+
+mainClassName = 'com.pillar.Main'
