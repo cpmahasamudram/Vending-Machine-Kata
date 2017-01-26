@@ -7,38 +7,38 @@ import com.pillar.data.VendingMachine;
 
 public class SelectProduct {
 
+	VendingMachine vm;
+
+	public SelectProduct(VendingMachine vm) {
+		this.vm = vm;
+	}
+
 	DecimalFormat df = new DecimalFormat("####0.00");
 
-	public void dispenseProduct(VendingMachine vendingMachine) {
-		if (vendingMachine.getButtonPressed() == "X") {
-			// not sure which one of the next two lines to keep
-			vendingMachine.setReturnTotal(vendingMachine.getTransactionTotal());
-			vendingMachine.getReturnCoins().add(vendingMachine.getTransactionTotal());
+	public void dispenseProduct() {
+		if (vm.getButtonPressed() == "X") {
+			vm.setReturnTotal(vm.getTransactionTotal());
+
 		} else {
 
-			for (Foods menu : vendingMachine.getMenu()) {
-				if (menu.getButtonReference().equalsIgnoreCase(vendingMachine.getButtonPressed())) {
+			for (Foods menu : vm.getMenu()) {
+				if (menu.getButtonReference().equalsIgnoreCase(vm.getButtonPressed())) {
 					if (menu.getQuantityAvailable() < 1) {
-						vendingMachine.setDisplayText("SOLD OUT");
+						vm.setDisplayText("SOLD OUT");
 					} else {
-						if (vendingMachine.getTransactionTotal() >= menu.getCost()) {
-							vendingMachine.setDispenseProduct(menu);
-							vendingMachine.setMachineBalance(
-									vendingMachine.getMachineBalance() + vendingMachine.getTransactionTotal());
-							vendingMachine.setDisplayText("THANK YOU");
-							menu.setQuantityAvailable(menu.getQuantityAvailable()-1);
-							if (vendingMachine.getTransactionTotal() > vendingMachine.getDispenseProduct().getCost()) {
-								vendingMachine.getReturnCoins().add(vendingMachine.getTransactionTotal()
-										- vendingMachine.getDispenseProduct().getCost());
+						if (vm.getTransactionTotal() >= menu.getCost()) {
+							vm.setDispenseProduct(menu);
+							vm.setMachineBalance(vm.getMachineBalance() + vm.getTransactionTotal());
+							vm.setDisplayText("THANK YOU");
+							menu.setQuantityAvailable(menu.getQuantityAvailable() - 1);
+							if (vm.getTransactionTotal() > vm.getDispenseProduct().getCost()) {
+								vm.setReturnTotal((vm.getTransactionTotal() - vm.getDispenseProduct().getCost()));
 							}
-							vendingMachine.setTransactionTotal(0.00);
+							vm.setTransactionTotal(0.00);
 						} else {
-							// if (menu.getCost() >
-							// vendingMachine.getTransactionTotal()) {
-
-							vendingMachine.setDisplayText("PRICE " + df.format(menu.getCost()));
-							vendingMachine.setReturnTotal(vendingMachine.getTransactionTotal());
-							vendingMachine.setTransactionTotal(0.00);
+							vm.setDisplayText("PRICE " + df.format(menu.getCost()));
+							vm.setReturnTotal(vm.getTransactionTotal());
+							vm.setTransactionTotal(0.00);
 						}
 
 					}
