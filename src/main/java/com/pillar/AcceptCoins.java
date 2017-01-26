@@ -6,24 +6,30 @@ import com.pillar.data.Coins;
 import com.pillar.data.VendingMachine;
 
 public class AcceptCoins {
+	
+	VendingMachine vm;
+	
+	public AcceptCoins(VendingMachine vm){
+		this.vm = vm;
+	}
+	
+	public void acceptVendingCoin() {
 
-	public void acceptVendingCoin(VendingMachine vendingMachine, double weight, double size) {
-
-		double denomination = getCoinDenomination(weight, size);
+		double denomination = getCoinDenomination(vm.getCoin());
 
 		if (denomination > 0.01) {
-			vendingMachine.setTransactionTotal(vendingMachine.getTransactionTotal() + denomination);
-			vendingMachine.setDisplayText(String.valueOf(vendingMachine.getTransactionTotal()));
+			vm.setTransactionTotal(vm.getTransactionTotal() + denomination);
+			vm.setDisplayText(String.valueOf(vm.getTransactionTotal()));
 
 		} else {
-			vendingMachine.getReturnCoins().add(denomination);
+			vm.setReturnTotal(denomination);
 		}
 
 	}
 
-	public double getCoinDenomination(double weight, double size) {
-		for (Coins coin : EnumSet.range(Coins.dime, Coins.quarter)) {
-			if (weight == coin.getWeight() && size == coin.getSize()) {
+	public double getCoinDenomination(Coins newCoin) {
+		for (Coins coin : EnumSet.range(Coins.penny, Coins.quarter)) {
+			if (newCoin.getWeight() == coin.getWeight() && newCoin.getSize() == coin.getSize()) {
 				return coin.getValue();
 			}
 		}

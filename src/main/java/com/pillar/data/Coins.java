@@ -1,10 +1,11 @@
 package com.pillar.data;
 
 public enum Coins {
-	dime(2.27 , 17.91, 0.10),
+	penny(2.5 , 19.05, 0.01),
 	nickel(5.00 , 21.21, 0.05),
-	quarter(5.67 , 24.26, 0.25),
-	penny(2.5 , 19.05, 0.01);
+	dime(2.27 , 17.91, 0.10),
+	quarter(5.67 , 24.26, 0.25);
+	
 	
 	private final double weight;
 	private final double size;

@@ -5,6 +5,7 @@ import static org.junit.Assert.*;
 import org.junit.Before;
 import org.junit.Test;
 
+import com.pillar.data.Coins;
 import com.pillar.data.VendingMachine;
 
 public class AcceptCoinsTest {
@@ -18,26 +19,28 @@ public class AcceptCoinsTest {
 	public void setUp() throws Exception 
 	{
 		vendingMachine = new VendingMachine();
-		acceptCoins = new AcceptCoins();
+		//acceptCoins = new AcceptCoins(vendingMachine);
 	}
 
 	@Test
 	public void whenAValidCoinIsInsertedTotalGetsUpdated() 
 	{
-		weight = 5;
-		size= 21.21;
-		double expected = vendingMachine.getTransactionTotal() + acceptCoins.getCoinDenomination(weight, size);
-		acceptCoins.acceptVendingCoin(vendingMachine, weight, size);
+		
+		vendingMachine.setCoin(Coins.nickel);
+		acceptCoins = new AcceptCoins(vendingMachine);
+		double expected = vendingMachine.getTransactionTotal() + acceptCoins.getCoinDenomination(Coins.nickel);
+		acceptCoins.acceptVendingCoin();
 		assertEquals(expected, vendingMachine.getTransactionTotal(), 0.001);
 	}
 	
 	@Test
 	public void whenAValidCoinIsInsertedDisplayTextshowsTotalAmount()
 	{
-		weight = 5.67;
-		size= 24.26;
-		double expected = vendingMachine.getTransactionTotal() + acceptCoins.getCoinDenomination(weight, size);
-		acceptCoins.acceptVendingCoin(vendingMachine, weight, size);
+		
+		vendingMachine.setCoin(Coins.quarter);
+		acceptCoins = new AcceptCoins(vendingMachine);
+		double expected = vendingMachine.getTransactionTotal() + acceptCoins.getCoinDenomination(Coins.quarter);
+		acceptCoins.acceptVendingCoin();
 		assertEquals(String.valueOf(expected),vendingMachine.getDisplayText());
 	}
 	
@@ -50,10 +53,9 @@ public class AcceptCoinsTest {
 	
 	@Test
 	public void rejectCoinsArePlacedInCoinReturn(){
-		weight= 2.5;
-		size= 19.05;
-		acceptCoins.acceptVendingCoin(vendingMachine, weight, size);
-		assertEquals(1,vendingMachine.getReturnCoins().size());
+		vendingMachine.setCoin(Coins.penny);
+		new AcceptCoins(vendingMachine).acceptVendingCoin();
+		assertEquals(0.01,vendingMachine.getReturnTotal(), 0.001);
 	}
 	
 }

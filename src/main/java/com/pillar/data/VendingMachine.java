@@ -3,10 +3,22 @@ package com.pillar.data;
 import java.util.ArrayList;
 
 public class VendingMachine {
-	public double coins;
+	public Coins coin;
+
+	
+
+	public Coins getCoin() {
+		return coin;
+	}
+
+	public void setCoin(Coins coin) {
+		this.coin = coin;
+	}
+
+	//public double coinSize;
 	public double transactionTotal;
 	public String displayText;
-	public ArrayList<Double> returnCoins;
+	// public ArrayList<Double> returnCoins;
 	public Foods dispenseProduct;
 	public ArrayList<Foods> menu;
 	public double returnTotal;
@@ -14,20 +26,22 @@ public class VendingMachine {
 	public double machineBalance;
 
 	public VendingMachine() {
-		if (this.machineBalance < 1.00)
-			this.displayText = "EXACT CHANGE ONLY";
-		else
-			this.displayText = "INSERT COIN";
+		this.displayText = "INSERT COIN";
 
 		// take this out later
-		returnCoins = new ArrayList<Double>();
+		// returnCoins = new ArrayList<Double>();
 		menu = new ArrayList<Foods>(10);
 		menu.add(new Drinks("Cola", 1.00, "C", 10));
 		menu.add(new Snacks("Candy", 0.65, "N", 5));
 		menu.add(new Snacks("Chips", 0.50, "P", 0));
 
 	}
-
+	
+	public VendingMachine(String button, double total) {
+		this.buttonPressed = button;
+		this.transactionTotal = total;
+	}
+	
 	public double getMachineBalance() {
 		return machineBalance;
 	}
@@ -59,14 +73,11 @@ public class VendingMachine {
 	public void setDispenseProduct(Foods dispenseProduct) {
 		this.dispenseProduct = dispenseProduct;
 	}
-
-	public double getCoins() {
-		return coins;
-	}
-
-	public void setCoins(double coins) {
-		this.coins = coins;
-	}
+	/*
+	 * public double getCoins() { return coins; }
+	 * 
+	 * public void setCoins(double coins) { this.coins = coins; }
+	 */
 
 	public double getTransactionTotal() {
 		return this.transactionTotal;
@@ -87,13 +98,29 @@ public class VendingMachine {
 	public Foods getDispenseProduct() {
 		return this.dispenseProduct;
 	}
-
-	public ArrayList<Double> getReturnCoins() {
-		return returnCoins;
+	
+	/*public double getCoinWeight() {
+		return coinWeight;
 	}
 
-	public void setReturnCoins(ArrayList<Double> returnCoins) {
-		this.returnCoins = returnCoins;
+	public void setCoinWeight(double coinWeight) {
+		this.coinWeight = coinWeight;
 	}
+
+	public double getCoinSize() {
+		return coinSize;
+	}
+
+	public void setCoinSize(double coinSize) {
+		this.coinSize = coinSize;
+	}*/
+	/*
+	 * public ArrayList<Double> getReturnCoins() { return returnCoins; }
+	 * 
+	 * public void setReturnCoins(ArrayList<Double> returnCoins) {
+	 * this.returnCoins = returnCoins; }
+	 */
+	
+	
 
 }
