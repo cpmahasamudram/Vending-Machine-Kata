@@ -1,37 +1,30 @@
 package com.pillar;
+
 import java.util.EnumSet;
 
-public class AcceptCoins {
+import com.pillar.data.Coins;
+import com.pillar.data.VendingMachine;
 
-	public AcceptCoins(VendingMachine vendingMachine) {
-		vendingMachine.setDisplayText("INSERT COIN");
-	}
+public class AcceptCoins {
 
 	public void acceptVendingCoin(VendingMachine vendingMachine, double weight, double size) {
 
 		double denomination = getCoinDenomination(weight, size);
-		
-		if(denomination > 0) 
-		{
-			vendingMachine.setTotal(vendingMachine.getTotal() + denomination);
-			vendingMachine.setDisplayText(String.valueOf(vendingMachine.getTotal()));
-		
-		} else
-		{ 
-			vendingMachine.setReturnCoin(true);			
-		} 
-		
-}
+
+		if (denomination > 0.01) {
+			vendingMachine.setTransactionTotal(vendingMachine.getTransactionTotal() + denomination);
+			vendingMachine.setDisplayText(String.valueOf(vendingMachine.getTransactionTotal()));
+
+		} else {
+			vendingMachine.getReturnCoins().add(denomination);
+		}
+
+	}
 
 	public double getCoinDenomination(double weight, double size) {
-		for(Coins coin: EnumSet.range(Coins.dime, Coins.quarter)){
-			if(weight == coin.getWeight() && size == coin.getSize()) {
-				switch(coin) {
-					case nickel: 	return 0.01; 
-					case dime:		return 0.10; 
-					case quarter: 	return 0.25;
-					default : 		return 0;
-				}
+		for (Coins coin : EnumSet.range(Coins.dime, Coins.quarter)) {
+			if (weight == coin.getWeight() && size == coin.getSize()) {
+				return coin.getValue();
 			}
 		}
 		return 0;

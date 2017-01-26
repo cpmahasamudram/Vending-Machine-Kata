@@ -5,6 +5,8 @@ import static org.junit.Assert.*;
 import org.junit.Before;
 import org.junit.Test;
 
+import com.pillar.data.VendingMachine;
+
 public class AcceptCoinsTest {
 
 	VendingMachine vendingMachine;
@@ -13,35 +15,45 @@ public class AcceptCoinsTest {
 	double size;
 	
 	@Before
-	public void setUp() throws Exception {
+	public void setUp() throws Exception 
+	{
 		vendingMachine = new VendingMachine();
-		acceptCoins = new AcceptCoins(vendingMachine);
+		acceptCoins = new AcceptCoins();
 	}
 
 	@Test
-	public void whenAValidCoinIsInsertedTotalGetsUpdated() {
+	public void whenAValidCoinIsInsertedTotalGetsUpdated() 
+	{
 		weight = 5;
 		size= 21.21;
-		double expected = vendingMachine.getTotal() + acceptCoins.getCoinDenomination(weight, size);
+		double expected = vendingMachine.getTransactionTotal() + acceptCoins.getCoinDenomination(weight, size);
 		acceptCoins.acceptVendingCoin(vendingMachine, weight, size);
-		assertEquals(expected, vendingMachine.getTotal(), 0.001);
+		assertEquals(expected, vendingMachine.getTransactionTotal(), 0.001);
 	}
 	
 	@Test
-	public void whenAValidCoinIsInsertedDisplayTextshowsTotalAmount(){
+	public void whenAValidCoinIsInsertedDisplayTextshowsTotalAmount()
+	{
 		weight = 5.67;
 		size= 24.26;
-		double expected = vendingMachine.getTotal() + acceptCoins.getCoinDenomination(weight, size);
+		double expected = vendingMachine.getTransactionTotal() + acceptCoins.getCoinDenomination(weight, size);
 		acceptCoins.acceptVendingCoin(vendingMachine, weight, size);
 		assertEquals(String.valueOf(expected),vendingMachine.getDisplayText());
 	}
 	
 	@Test
-	public void whenNoCoinsInsertedMachineDisplaysINSERTCOIN(){
+	public void whenNoCoinsInsertedMachineDisplaysINSERTCOIN()
+	{
 		assertEquals("INSERT COIN", vendingMachine.getDisplayText());
 	}
 	
 	
-	
+	@Test
+	public void rejectCoinsArePlacedInCoinReturn(){
+		weight= 2.5;
+		size= 19.05;
+		acceptCoins.acceptVendingCoin(vendingMachine, weight, size);
+		assertEquals(1,vendingMachine.getReturnCoins().size());
+	}
 	
 }
