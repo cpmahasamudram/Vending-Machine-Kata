@@ -1,4 +1,4 @@
-package com.pillar.data;
+package com.vm.model;
 
 public enum Coins {
 	penny(2.5 , 19.05, 0.01),
