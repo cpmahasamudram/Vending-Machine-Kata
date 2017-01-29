@@ -14,24 +14,20 @@ public class CoinProcessor {
 		processCoin();
 	}
 	
-	private boolean ValidateCoin(){
+	public void processCoin() {	
+
 		for (Coins eCoin : EnumSet.range(Coins.nickel, Coins.quarter)) {
-			if (vm.enteredCoin.getWeight() == eCoin.getWeight() && vm.enteredCoin.getSize() == eCoin.getSize()) {
-				return true;
+			if (vm.getEnteredCoin().getWeight() == eCoin.getWeight() && vm.getEnteredCoin().getSize() == eCoin.getSize()) {
+				vm.setValidCoinEntered(true);
 			}
 		}
-		return false;
-	} 
-	
-	public void processCoin() {
-
-		vm.validCoinEntered = ValidateCoin();
-		if (vm.validCoinEntered) {
-			vm.setCurrentAmount(vm.currentAmount + vm.enteredCoin.getValue());
-			vm.cashInMachine += vm.currentAmount;
-			vm.display = String.valueOf(vm.currentAmount);
+		
+		if (vm.isValidCoinEntered()) {
+			vm.setCurrentAmount(vm.getCurrentAmount() + vm.getEnteredCoin().getValue());
+			vm.setCashInMachine(vm.getCashInMachine()+vm.getCurrentAmount());
+			vm.setDisplay(String.valueOf(vm.getCurrentAmount()));
 		} else {
-			vm.returnTotal = vm.enteredCoin.getValue();
+			vm.setReturnTotal(vm.getEnteredCoin().getValue());
 		}
 	}
 

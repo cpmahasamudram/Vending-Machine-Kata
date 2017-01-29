@@ -2,6 +2,7 @@ package com.vm.model;
 
 import java.util.ArrayList;
 
+import com.vm.controller.LoadInventory;
 import com.vm.state.HasCoin;
 import com.vm.state.NoCoin;
 import com.vm.state.VMState;
@@ -13,22 +14,25 @@ public class VendingMachine {
 
 	VMState vmState;
 
-	public double cashInMachine;
-	public double currentAmount;
-	public double returnTotal;
-	public String display;
-	public ArrayList<Product> products;
-	public Product dispensedProduct;
-	public Product selectedProduct;
-	public Coins enteredCoin;
-	public String buttonSelected;
+	private double cashInMachine;
+	private double currentAmount;
+	private double returnTotal;
+	private String display;
+	private ArrayList<Product> products;
+	
+	private Product dispensedProduct;
+	private Product selectedProduct;
+	private Coins enteredCoin;
+	private String buttonSelected;
 
-	public boolean validCoinEntered = false;
+	private boolean validCoinEntered = false;
 
 	public VendingMachine(double cashInMachine) {
 		hasCoin = new HasCoin(this);
 		noCoin = new NoCoin(this);
 		this.setCashInMachine(cashInMachine);
+		this.setDisplay("INSERT COIN");
+		new LoadInventory(this);
 		
 		vmState = noCoin;
 
@@ -78,6 +82,43 @@ public class VendingMachine {
 		this.enteredCoin = coin;
 	}
 
+
+	public double getCashInMachine() {
+		return cashInMachine;
+	}
+
+	public double getCurrentAmount() {
+		return currentAmount;
+	}
+
+	public Product getDispensedProduct() {
+		return dispensedProduct;
+	}
+
+	public Product getSelectedProduct() {
+		return selectedProduct;
+	}
+
+	public Coins getEnteredCoin() {
+		return enteredCoin;
+	}
+
+	public String getButtonSelected() {
+		return buttonSelected;
+	}
+
+	public ArrayList<Product> getProducts() {
+		return products;
+	}
+
+	public double getReturnTotal() {
+		return returnTotal;
+	}
+
+	public String getDisplay() {
+		return display;
+	}
+
 	public void insertCoin(Coins coin) {
 		vmState.insertCoin(coin);
 	}
@@ -92,6 +133,14 @@ public class VendingMachine {
 
 	public VMState getNoCoinState() {
 		return noCoin;
+	}
+
+	public boolean isValidCoinEntered() {
+		return validCoinEntered;
+	}
+
+	public void setValidCoinEntered(boolean validCoinEntered) {
+		this.validCoinEntered = validCoinEntered;
 	}
 
 }
