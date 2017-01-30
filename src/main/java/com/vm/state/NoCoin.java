@@ -2,6 +2,8 @@ package com.vm.state;
 
 import com.vm.Util.CoinProcessor;
 import com.vm.Util.SelectionHandler;
+import com.vm.Util.ProductFinder;
+import com.vm.constants.VMConstants;
 import com.vm.model.Coins;
 import com.vm.model.VendingMachine;
 
@@ -22,8 +24,14 @@ public class NoCoin implements VMState {
 
 	@Override
 	public void selectAnOption(String buttonPressed) {
-		vm.setButtonSelected(buttonPressed);
-		new SelectionHandler(vm);
+
+		if (!(buttonPressed.equals(VMConstants.CANCEL))) {
+			vm.setButtonSelected(buttonPressed);
+			new ProductFinder(vm);
+			if (vm.getSelectedProduct().getQuantityAvailable() > 0) {
+				new SelectionHandler(vm);
+			}
+		}
 	}
 
 }
