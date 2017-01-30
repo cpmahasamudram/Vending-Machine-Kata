@@ -2,7 +2,7 @@ package com.vm.model;
 
 import java.util.ArrayList;
 
-import com.vm.controller.LoadInventory;
+import com.vm.Util.LoadInventory;
 import com.vm.state.HasCoin;
 import com.vm.state.NoCoin;
 import com.vm.state.VMState;

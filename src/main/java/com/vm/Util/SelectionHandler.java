@@ -1,4 +1,4 @@
-package com.vm.controller;
+package com.vm.Util;
 
 import java.text.DecimalFormat;
 

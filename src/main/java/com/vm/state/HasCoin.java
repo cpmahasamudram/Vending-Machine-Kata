@@ -1,7 +1,7 @@
 package com.vm.state;
 
-import com.vm.controller.CoinProcessor;
-import com.vm.controller.SelectionHandler;
+import com.vm.Util.CoinProcessor;
+import com.vm.Util.SelectionHandler;
 import com.vm.model.Coins;
 import com.vm.model.VendingMachine;
 

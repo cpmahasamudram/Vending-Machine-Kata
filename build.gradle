@@ -7,7 +7,6 @@ targetCompatibility = 1.8
 
 dependencies {
     testCompile "junit:junit:4.12"
-    testCompile "org.mockito:mockito-core:2.+"
 }
 
 jar {
@@ -29,15 +28,9 @@ sourceSets {
       java {
          srcDir 'testSrc'
       }
-      /*
-      resources {
-         srcDir 'test/resources'
-         srcDir 'conf'
-      }
-      */
    }
 
 }
 
 
-mainClassName = 'com.pillar.Main'
+mainClassName = 'com.vm.Util.VMMain'

@@ -36,7 +36,7 @@ public class VendingMachineTests {
 		vm.selectAnOption("P");
 	}
 	
-	private void setUpReturn(){
+	private void setUpToReturn(){
 		vm.insertCoin(Coins.nickel);
 		vm.selectAnOption("X");
 	}
@@ -64,7 +64,7 @@ public class VendingMachineTests {
 	}
 	
 	@Test
-	public void whenAValidCoinIsEnteredDisplayIsUpdated(){
+	public void whenAValidCoinIsEnteredDisplaysCoinValue(){
 		vm.insertCoin(Coins.nickel);
 		assertEquals(String.valueOf(Coins.nickel.getValue()), vm.getDisplay());
 	}
@@ -113,14 +113,14 @@ public class VendingMachineTests {
 	
 	@Test
 	public void whenReturnCoinsButtonPressedMoneyIsReturned(){
-		setUpReturn();
+		setUpToReturn();
 		assertEquals(Coins.nickel.getValue(), vm.getReturnTotal(), 0.001);
 	}
 	
 	
 	@Test
 	public void afterReturnCoinsDisplayShowsINSERTCOIN(){
-		setUpReturn();
+		setUpToReturn();
 		assertEquals("INSERT COIN", vm.getDisplay());
 	}
 	
