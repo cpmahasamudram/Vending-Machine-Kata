@@ -7,11 +7,11 @@ import com.vm.model.Product;
 import com.vm.model.Snacks;
 import com.vm.model.VendingMachine;
 
-public class LoadInventory {
+public class InventoryLoader {
 
 	VendingMachine vm;
 
-	public LoadInventory(VendingMachine vm) {
+	public InventoryLoader(VendingMachine vm) {
 		this.vm = vm;
 		loadProducts();
 	}

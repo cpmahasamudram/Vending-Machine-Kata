@@ -32,5 +32,10 @@ sourceSets {
 
 }
 
-
+test {
+    afterTest { desc, result -> 
+        println "Executing test ${desc.name} with result: ${result.resultType}"
+    }
+}
+    
 mainClassName = 'com.vm.Util.VMMain'

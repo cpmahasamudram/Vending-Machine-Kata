@@ -10,4 +10,3 @@ public class VMConstants {
 	public static final String CANCEL = "X";
 	public static final String DECIMAL_FORMAT = "####0.00";
 }
-

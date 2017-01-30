@@ -12,7 +12,7 @@ import com.vm.model.VendingMachine;
 public class VendingMachineTests {
 
 	VendingMachine vm;
-	
+
 	@Before
 	public void setUp() throws Exception {
 		vm = new VendingMachine(4);
@@ -23,24 +23,24 @@ public class VendingMachineTests {
 		vm.insertCoin(Coins.quarter);
 		vm.selectAnOption("P");
 	}
-	
-	private void setUpToFailDispense(){
+
+	private void setUpToFailDispense() {
 		vm.insertCoin(Coins.quarter);
 		vm.selectAnOption("P");
 	}
-	
+
 	private void setUpToMakeChange() {
 		vm.insertCoin(Coins.quarter);
 		vm.insertCoin(Coins.quarter);
 		vm.insertCoin(Coins.quarter);
 		vm.selectAnOption("P");
 	}
-	
-	private void setUpToReturn(){
+
+	private void setUpToReturn() {
 		vm.insertCoin(Coins.nickel);
 		vm.selectAnOption("X");
 	}
-	
+
 	@After
 	public void tearDown() throws Exception {
 	}
@@ -56,89 +56,86 @@ public class VendingMachineTests {
 		vm.insertCoin(Coins.penny);
 		assertEquals(false, vm.isValidCoinEntered());
 	}
-	
+
 	@Test
-	public void whenAValidCoinIsEnteredCurrentAmountIsUpdated(){
+	public void whenAValidCoinIsEnteredCurrentAmountIsUpdated() {
 		vm.insertCoin(Coins.quarter);
 		assertEquals(Coins.quarter.getValue(), vm.getCurrentAmount(), 0.001);
 	}
-	
+
 	@Test
-	public void whenAValidCoinIsEnteredDisplaysCoinValue(){
+	public void whenAValidCoinIsEnteredDisplaysCoinValue() {
 		vm.insertCoin(Coins.nickel);
 		assertEquals(String.valueOf(Coins.nickel.getValue()), vm.getDisplay());
 	}
-	
+
 	@Test
-	public void whenNoCoinInsertedDisplaysINSERTCOIN(){
+	public void whenNoCoinInsertedDisplaysINSERTCOIN() {
 		assertEquals("INSERT COIN", vm.getDisplay());
 	}
-	
-	
+
 	@Test
-	public void rejectedCoinsPlacedInCoinReturn(){
+	public void rejectedCoinsPlacedInCoinReturn() {
 		vm.insertCoin(Coins.penny);
 		assertEquals(Coins.penny.getValue(), vm.getReturnTotal(), 0.001);
 	}
-	
+
 	@Test
-	public void whenRespectiveButtonIsPressedAndEnouhgMoneyIsInsertProductIsDispensed(){
+	public void whenRespectiveButtonIsPressedAndEnouhgMoneyIsInsertProductIsDispensed() {
 		setUpToDispense();
 		assertEquals("Chips", vm.getDispensedProduct().getName());
 	}
 
 	@Test
-	public void whenRespectiveButtonIsPressedAndEnouhgMoneyIsInsertProductIsDispensedAndDisplaysTHANKYOU(){
+	public void whenRespectiveButtonIsPressedAndEnouhgMoneyIsInsertProductIsDispensedAndDisplaysTHANKYOU() {
 		setUpToDispense();
-		assertEquals("THANK YOU",vm.getDisplay());
+		assertEquals("THANK YOU", vm.getDisplay());
 	}
-	
+
 	@Test
-	public void whenNotEnoughMoneyIsInsertedDisplaysPRICE(){
+	public void whenNotEnoughMoneyIsInsertedDisplaysPRICE() {
 		setUpToFailDispense();
 		assertEquals("PRICE 0.50", vm.getDisplay());
 	}
-	
+
 	@Test
-	public void afterHandlingSelectionDisplaysINSERTCOIN(){
+	public void afterHandlingSelectionDisplaysINSERTCOIN() {
 		assertEquals("INSERT COIN", vm.getDisplay());
 	}
-	
+
 	@Test
-	public void whenAProductCostsLessThanMoneyInsertedReturnIsMade(){
+	public void whenAProductCostsLessThanMoneyInsertedReturnIsMade() {
 		setUpToMakeChange();
 		assertEquals(Coins.quarter.getValue(), vm.getReturnTotal(), 0.001);
 	}
-	
-	
+
 	@Test
-	public void whenReturnCoinsButtonPressedMoneyIsReturned(){
+	public void whenReturnCoinsButtonPressedMoneyIsReturned() {
 		setUpToReturn();
 		assertEquals(Coins.nickel.getValue(), vm.getReturnTotal(), 0.001);
 	}
-	
-	
+
 	@Test
-	public void afterReturnCoinsDisplayShowsINSERTCOIN(){
+	public void afterReturnCoinsDisplayShowsINSERTCOIN() {
 		setUpToReturn();
 		assertEquals("INSERT COIN", vm.getDisplay());
 	}
-	
+
 	@Test
-	public void whenItemSelectedIsOutOfStockDisplaysINSERTCOINIfNoMoneyInMachine(){
+	public void whenItemSelectedIsOutOfStockDisplaysINSERTCOINIfNoMoneyInMachine() {
 		vm.selectAnOption("N");
 		assertEquals("INSERT COIN", vm.getDisplay());
 	}
-	
+
 	@Test
-	public void whenItemSelectedIsOutOfStockDisplaysSOLDOUT(){
+	public void whenItemSelectedIsOutOfStockDisplaysSOLDOUT() {
 		vm.insertCoin(Coins.quarter);
 		vm.selectAnOption("N");
 		assertEquals("SOLD OUT", vm.getDisplay());
 	}
-	
-	@Test 
-	public void whenNotAbleToMakeChangeDisplayEXACTCHANGEONLY(){
+
+	@Test
+	public void whenNotAbleToMakeChangeDisplayEXACTCHANGEONLY() {
 		vm = new VendingMachine(0);
 		assertEquals("EXACT CHANGE ONLY", vm.getDisplay());
 	}

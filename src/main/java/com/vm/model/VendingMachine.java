@@ -2,7 +2,7 @@ package com.vm.model;
 
 import java.util.ArrayList;
 
-import com.vm.Util.LoadInventory;
+import com.vm.Util.InventoryLoader;
 import com.vm.state.HasCoin;
 import com.vm.state.NoCoin;
 import com.vm.state.VMState;
@@ -19,7 +19,7 @@ public class VendingMachine {
 	private double returnTotal;
 	private String display;
 	private ArrayList<Product> products;
-	
+
 	private Product dispensedProduct;
 	private Product selectedProduct;
 	private Coins enteredCoin;
@@ -32,8 +32,8 @@ public class VendingMachine {
 		noCoin = new NoCoin(this);
 		this.setCashInMachine(cashInMachine);
 		this.setDisplay("INSERT COIN");
-		new LoadInventory(this);
-		
+		new InventoryLoader(this);
+
 		vmState = noCoin;
 
 		if (cashInMachine < 1) {
@@ -81,7 +81,6 @@ public class VendingMachine {
 	public void setEnteredCoin(Coins coin) {
 		this.enteredCoin = coin;
 	}
-
 
 	public double getCashInMachine() {
 		return cashInMachine;
